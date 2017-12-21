@@ -244,13 +244,19 @@ void MostrarmatrizFinal(Fixture final[][32],Equipo equipos[]){
 
 
     format_set_bold(format);
-    int indice=0;
+    int indice=0,indice2;
+     
 	for(int i=0;i<30;i++){
 		for(int j=0;j<8;j++){
-			worksheet_set_column(worksheet, i, j, 20, NULL);
+
 			indice = final[j][i].visita;
+			indice2= final[j][i].local;
+			string total(string(equipos[indice2].nombre_equipo)+" vs "+equipos[indice].nombre_equipo);
+			//result.append(equipos[indice2].nombre_equipo);
+			worksheet_set_column(worksheet, i, j, 50, NULL);
+
 			worksheet_write_number(worksheet, 0, i,i,format);
-		  	worksheet_write_string(worksheet, j+1, i, equipos[indice].nombre_equipo.c_str(), format);					
+		  	worksheet_write_string(worksheet, j+1, i, total.c_str(), format);					
 		}
 	}
 	workbook_close(workbook);
@@ -374,9 +380,9 @@ int main(int argc, char* argv[]){
 
 	//Calcula todas las distancias por cada una de las 120 aristas para luego hacer la suma
 	CalcularDistancias(equipos,dist);
-
+	int rango=100000;
 	//Llena las matrices de 8x8
-	for(int i=0;i<1000000;i++){ 
+	for(int i=0;i<rango;i++){ 
 
 	LlenarMatriz(matriz, equipos, 0,8,0,8,8,8,0);
 	distancia[0] = ComprobarFinal(matriz,dist,equipos,0,8,0,7,aux,camino1,0,8,0,8);
@@ -384,7 +390,7 @@ int main(int argc, char* argv[]){
 	//cout<<distancia[0]<<endl;
 	}
 	aux=100000000;
-	for(int i=0;i<1000000;i++){ 
+	for(int i=0;i<rango;i++){ 
 	LlenarMatriz(matriz2, equipos, 0,8,0,8,0,8,1);
 	distancia[1] = ComprobarFinal(matriz2,dist,equipos,8,16,7,15,aux,camino2,0,8,0,8);
 	aux=distancia[1];
@@ -395,7 +401,7 @@ int main(int argc, char* argv[]){
 	aux=100000000;
 
 	//llena las matrices de 4x4
-	for(int i=0;i<1000000;i++){
+	for(int i=0;i<rango;i++){
 
 	LlenarMatriz(matriz3, equipos, 0,4,0,4,4,4,2);
 	distancia[2] = ComprobarFinal(matriz3,dist,equipos,0,4,0,3,aux,camino3,0,4,0,4);
@@ -404,7 +410,7 @@ int main(int argc, char* argv[]){
 
 	}
 	aux=100000000;
-	for(int i=0;i<1000000;i++){ 
+	for(int i=0;i<rango;i++){ 
 	LlenarMatriz(matriz4, equipos, 0,4,0,4,0,4,3);
 	distancia[3] = ComprobarFinal(matriz4,dist,equipos,4,8,3,7,aux,camino4,0,4,0,4);
 	aux=distancia[3];
@@ -412,7 +418,7 @@ int main(int argc, char* argv[]){
 
 	}
 	aux=100000000;
-	for(int i=0;i<1000000;i++){ 
+	for(int i=0;i<rango;i++){ 
 	LlenarMatriz(matriz5, equipos, 0,4,0,4,12,4,4);
 	distancia[4] = ComprobarFinal(matriz5,dist,equipos,8,12,0,3,aux,camino5,0,4,0,4);
 	aux=distancia[4];
@@ -420,13 +426,13 @@ int main(int argc, char* argv[]){
 
 	}
 	aux=100000000;
-	for(int i=0;i<1000000;i++){ 
+	for(int i=0;i<rango;i++){ 
 	LlenarMatriz(matriz6, equipos, 0,4,0,4,8,4,5);
 	distancia[5] = ComprobarFinal(matriz6,dist,equipos,12,16,3,7,aux,camino6,0,4,0,4);
 	aux=distancia[5];
 	}
 	UltimaMatriz(equipos,matriz7);
-	for(int i=0;i<1000000;i++){
+	for(int i=0;i<rango;i++){
 	distancia[6] = ComprobarFinal(matriz7,dist,equipos,0,8,12,15,aux,camino7,0,4,0,4);
 	aux=distancia[6];	
 	}
@@ -435,5 +441,5 @@ int main(int argc, char* argv[]){
 	for(int i=0;i<7;i++){
 		distancia_total = distancia[i] + distancia_total;
 	}
-	cout<<distancia_total<<endl;
+	//cout<<distancia_total<<endl;
 }
