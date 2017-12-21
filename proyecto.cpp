@@ -376,7 +376,7 @@ int main(int argc, char* argv[]){
 	CalcularDistancias(equipos,dist);
 
 	//Llena las matrices de 8x8
-	for(int i=0;i<1000;i++){ 
+	for(int i=0;i<1000000;i++){ 
 
 	LlenarMatriz(matriz, equipos, 0,8,0,8,8,8,0);
 	distancia[0] = ComprobarFinal(matriz,dist,equipos,0,8,0,7,aux,camino1,0,8,0,8);
@@ -384,7 +384,7 @@ int main(int argc, char* argv[]){
 	//cout<<distancia[0]<<endl;
 	}
 	aux=100000000;
-	for(int i=0;i<1000;i++){ 
+	for(int i=0;i<1000000;i++){ 
 	LlenarMatriz(matriz2, equipos, 0,8,0,8,0,8,1);
 	distancia[1] = ComprobarFinal(matriz2,dist,equipos,8,16,7,15,aux,camino2,0,8,0,8);
 	aux=distancia[1];
@@ -395,7 +395,7 @@ int main(int argc, char* argv[]){
 	aux=100000000;
 
 	//llena las matrices de 4x4
-	for(int i=0;i<1000;i++){
+	for(int i=0;i<1000000;i++){
 
 	LlenarMatriz(matriz3, equipos, 0,4,0,4,4,4,2);
 	distancia[2] = ComprobarFinal(matriz3,dist,equipos,0,4,0,3,aux,camino3,0,4,0,4);
@@ -404,7 +404,7 @@ int main(int argc, char* argv[]){
 
 	}
 	aux=100000000;
-	for(int i=0;i<1000;i++){ 
+	for(int i=0;i<1000000;i++){ 
 	LlenarMatriz(matriz4, equipos, 0,4,0,4,0,4,3);
 	distancia[3] = ComprobarFinal(matriz4,dist,equipos,4,8,3,7,aux,camino4,0,4,0,4);
 	aux=distancia[3];
@@ -412,7 +412,7 @@ int main(int argc, char* argv[]){
 
 	}
 	aux=100000000;
-	for(int i=0;i<1000;i++){ 
+	for(int i=0;i<1000000;i++){ 
 	LlenarMatriz(matriz5, equipos, 0,4,0,4,12,4,4);
 	distancia[4] = ComprobarFinal(matriz5,dist,equipos,8,12,0,3,aux,camino5,0,4,0,4);
 	aux=distancia[4];
@@ -420,13 +420,13 @@ int main(int argc, char* argv[]){
 
 	}
 	aux=100000000;
-	for(int i=0;i<1000;i++){ 
+	for(int i=0;i<1000000;i++){ 
 	LlenarMatriz(matriz6, equipos, 0,4,0,4,8,4,5);
 	distancia[5] = ComprobarFinal(matriz6,dist,equipos,12,16,3,7,aux,camino6,0,4,0,4);
 	aux=distancia[5];
 	}
 	UltimaMatriz(equipos,matriz7);
-	for(int i=0;i<1000;i++){
+	for(int i=0;i<1000000;i++){
 	distancia[6] = ComprobarFinal(matriz7,dist,equipos,0,8,12,15,aux,camino7,0,4,0,4);
 	aux=distancia[6];	
 	}
