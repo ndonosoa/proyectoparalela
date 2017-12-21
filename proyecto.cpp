@@ -10,7 +10,7 @@ using namespace std;
 
 
 struct Juegos{
-	int enemigo;
+	int contrincante;
 };
 struct Equipo{
 	string nombre_equipo;
@@ -121,8 +121,13 @@ void Inicializar(Fixture matriz[][8],int indice){
 	}
 }
 void MostrarMatriz(Fixture matriz[][8]){
+	cout<<"  0 1 2 3 4 5 6 7"<<endl;
 	for(int i=0;i<8;i++){
-	cout<<matriz[i][0].visita<<" "<<matriz[i][1].visita<<" "<<matriz[i][2].visita<<" "<<matriz[i][3].visita<<" "<<matriz[i][4].visita<<" "<<matriz[i][5].visita<<" "<<matriz[i][6].visita<<" "<<matriz[i][7].visita<<" "<<endl;
+		cout<<i<<" ";
+		for(int j=0;j<8;j++){
+			cout<<matriz[i][j].visita<<" ";
+		}
+		cout<<endl;
 	}
 	cout<<" "<<endl;
 }
@@ -138,22 +143,22 @@ here:
 				 
 				 matriz[i][j].visita = random;
 				 switch(matriztipo){
-				 	case 0: equipos[random].historial[j].enemigo = i;
+				 	case 0: equipos[random].historial[j].contrincante = i;
 				 			matriz[i][j].local = i;				 		
 				 			break;
-				 	case 1: equipos[random].historial[j].enemigo = i+8;
+				 	case 1: equipos[random].historial[j].contrincante = i+8;
 				 			matriz[i][j].local = i+8;
 				 			break;
-				 	case 2:	equipos[random].historial[j+8].enemigo = i;
+				 	case 2:	equipos[random].historial[j+8].contrincante = i;
 				 			matriz[i][j].local = i;
 				 			break;
-				 	case 3: equipos[random].historial[j+8].enemigo = i+4;
+				 	case 3: equipos[random].historial[j+8].contrincante = i+4;
 				 			matriz[i][j].local = i+4;
 				 			break;		
-				 	case 4: equipos[random].historial[j+8].enemigo = i+8;
+				 	case 4: equipos[random].historial[j+8].contrincante = i+8;
 				 			matriz[i][j].local = i+8;
 				 			break;
-				 	case 5: equipos[random].historial[j+8].enemigo = i+12;
+				 	case 5: equipos[random].historial[j+8].contrincante = i+12;
 				 			matriz[i][j].local = i+12;
 				 			break;		
 				 }
@@ -180,7 +185,7 @@ void MostrarEquipo(Equipo equipos[]){
 	
 	for(int i=0;i<16;i++){
 		for(int j=0;j<15;j++){
-		  cout<<"equipo: "<<i<<" local "<<equipos[i].historial[j].enemigo<<endl;
+		  cout<<"equipo: "<<i<<" local "<<equipos[i].historial[j].contrincante<<endl;
 		  
 		}
 		cout<<endl;
@@ -193,14 +198,14 @@ float SumaDistancias(Fixture matriz[][8],Distancia dist[], Equipo equipos[],int 
 	for(int i=lim_i_i;i<lim_s_i;i++){
 		for(int j=lim_i_j;j<lim_s_j;j++){
 			for(int k=0;k<120;k++){
-				if(var && (dist[k].puntoA == i && dist[k].puntoB == equipos[i].historial[j].enemigo || dist[k].puntoA == equipos[i].historial[j].enemigo && dist[k].puntoB == i)){
+				if(var && (dist[k].puntoA == i && dist[k].puntoB == equipos[i].historial[j].contrincante || dist[k].puntoA == equipos[i].historial[j].contrincante && dist[k].puntoB == i)){
 					equipos[i].distancia_r = dist[k].distancia;
 					var= false;
 				}
-				if((dist[k].puntoA == equipos[i].historial[j].enemigo && dist[k].puntoB == equipos[i].historial[j+1].enemigo)|| (dist[k].puntoB == equipos[i].historial[j].enemigo && dist[k].puntoA == equipos[i].historial[j+1].enemigo)){
+				if((dist[k].puntoA == equipos[i].historial[j].contrincante && dist[k].puntoB == equipos[i].historial[j+1].contrincante)|| (dist[k].puntoB == equipos[i].historial[j].contrincante && dist[k].puntoA == equipos[i].historial[j+1].contrincante)){
 					equipos[i].distancia_r = equipos[i].distancia_r + dist[k].distancia;
 				}
-				if(j== 6 && (dist[k].puntoA == i && dist[k].puntoB == equipos[i].historial[j+1].enemigo || dist[k].puntoA == equipos[i].historial[j+1].enemigo && dist[k].puntoB == i)){
+				if(j== 6 && (dist[k].puntoA == i && dist[k].puntoB == equipos[i].historial[j+1].contrincante || dist[k].puntoA == equipos[i].historial[j+1].contrincante && dist[k].puntoB == i)){
 					 equipos[i].distancia_r = equipos[i].distancia_r + dist[k].distancia;
 				}
 			}
@@ -288,10 +293,10 @@ void JuntarMatrices(Equipo equipos[],Fixture final[][32],Fixture matriz[][8],Fix
 void UltimaMatriz(Equipo equipos[],Fixture matriz7[][8]){
 	int cont = 12,indf=0,indi=0,indi2=0;
 	for(int i=0;i<16;i+=4){
-		equipos[i].historial[cont].enemigo = i+2;
+		equipos[i].historial[cont].contrincante = i+2;
 		matriz7[indi][indf].visita = i;
 		matriz7[indi][indf].local = i+2;
-		equipos[i+1].historial[cont].enemigo = i+3;
+		equipos[i+1].historial[cont].contrincante = i+3;
 		indi++;
 		matriz7[indi][indf].visita = i+1;
 		matriz7[indi][indf].local = i+3;
@@ -301,10 +306,10 @@ void UltimaMatriz(Equipo equipos[],Fixture matriz7[][8]){
 	indf++;
 	indi=0;
 	for(int i=2;i<16;i=i+4){
-		equipos[i].historial[cont].enemigo = i-2;
+		equipos[i].historial[cont].contrincante = i-2;
 		matriz7[indi][indf].visita = i;
 		matriz7[indi][indf].local = i-2;
-		equipos[i+1].historial[cont].enemigo = i-1;
+		equipos[i+1].historial[cont].contrincante = i-1;
 		indi++;
 		matriz7[indi][indf].visita = i+1;
 		matriz7[indi][indf].local = i-1;
@@ -315,18 +320,18 @@ void UltimaMatriz(Equipo equipos[],Fixture matriz7[][8]){
 	indf++;
 	indi=0;
 	for(int i=0;i<16;i=i+4){
-		equipos[i].historial[cont].enemigo = i+3;
+		equipos[i].historial[cont].contrincante = i+3;
 		matriz7[indi][indf].visita = i;
 		matriz7[indi][indf].local = i+3;		
-		equipos[i+1].historial[cont].enemigo = i+2;
+		equipos[i+1].historial[cont].contrincante = i+2;
 		indi++;
 		matriz7[indi][indf].visita = i+1;
 		matriz7[indi][indf].local = i+2;
 		indi++;
-		equipos[i+3].historial[cont].enemigo = i;
+		equipos[i+3].historial[cont].contrincante = i;
 		matriz7[indi2][indf+1].visita = i+3;
 		matriz7[indi2][indf+1].local = i;
-		equipos[i+2].historial[cont].enemigo = i+1;
+		equipos[i+2].historial[cont].contrincante = i+1;
 		indi2++;
 		matriz7[indi2][indf+1].visita = i+2;
 		matriz7[indi2][indf+1].local = i+1;	
@@ -337,11 +342,11 @@ void UltimaMatriz(Equipo equipos[],Fixture matriz7[][8]){
 	indi2=0;
 	indi=0;
 	for(int i=0;i<8;i++){
-		equipos[2*i].historial[cont].enemigo = 2*i+1;
+		equipos[2*i].historial[cont].contrincante = 2*i+1;
 		matriz7[indi][indf].visita = 2*i;
 		matriz7[indi][indf].local = 2*i+1;
 		indi++;		
-		equipos[2*i+1].historial[cont].enemigo = 2*i;
+		equipos[2*i+1].historial[cont].contrincante = 2*i;
 		matriz7[indi2][indf+1].visita = 2*i+1;
 		matriz7[indi2][indf+1].local = 2*i;
 		indi2++;		
@@ -386,6 +391,7 @@ int main(int argc, char* argv[]){
 	//cout<<distancia[1]<<endl;
 
 	}
+	//MostrarMatriz(camino2);
 	aux=100000000;
 
 	//llena las matrices de 4x4
